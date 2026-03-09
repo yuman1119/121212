@@ -1,55 +1,123 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <title>test</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>rouaa老師的簡易計算機</title>
+    <meta charset="UTF-8">
+    <title>yuman的簡易計算機</title>
     <style>
-        input[type="button"] {
-            width: 50px;
-            height: 50px;
+        /* 整體背景：淺紫色 */
+        body {
+            background-color: #F3E5F5; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        input[type="text"] {
-            width: 200px;
+
+        h1 {
+            color: #7E57C2; /* 深一點的紫色字體 */
+            text-shadow: 1px 1px 2px white;
+            margin-bottom: 20px;
+        }
+
+        /* 計算機外殼 */
+        .calculator-box {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 25px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+            border: 4px solid #D1C4E9;
+        }
+
+        /* 顯示螢幕 */
+        #display {
+            width: 220px;
             height: 50px;
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 2px solid #E1BEE7;
+            border-radius: 15px;
+            background-color: #FAFAFA;
+            color: #5E35B1;
+            outline: none;
+        }
+
+        /* 按鈕基礎樣式 */
+        input[type="button"] {
+            width: 55px;
+            height: 55px;
+            margin: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 15px;
+            transition: all 0.2s;
+            background-color: #EDE7F6; /* 極淺紫 */
+            color: #7E57C2;
+        }
+
+        /* 按鈕懸停與點擊效果 */
+        input[type="button"]:hover {
+            background-color: #D1C4E9;
+            transform: translateY(-2px);
+        }
+
+        input[type="button"]:active {
+            transform: translateY(1px);
+        }
+
+        /* 運算符號按鈕樣式 (白色背景) */
+        .operator {
+            background-color: #FFFFFF !important;
+            border: 2px solid #D1C4E9 !important;
+        }
+
+        /* 等號按鈕強調 (紫色背景) */
+        .equal {
+            background-color: #B39DDB !important;
+            color: white !important;
+        }
+
+        /* 清除按鈕 */
+        .clear {
+            background-color: #FFCDD2 !important; /* 淡淡的粉紅 */
+            color: #D32F2F !important;
         }
     </style>
 </head>
 <body>
-    <h1>rouaa老師的簡易計算機</h1>
-  <hr>
-   <hr>
-     <hr>
-    <input type="text" id="display" readonly>
-    <br>
-    <input type="button" value="1" onclick="appendToDisplay('1')">
-    <input type="button" value="2" onclick="appendToDisplay('2')">
-    <input type="button" value="3" onclick="appendToDisplay('3')">
-    <input type="button" value="+" onclick="appendToDisplay('+')">
-    <br>
-    <input type="button" value="4" onclick="appendToDisplay('4')">
-    <input type="button" value="5" onclick="appendToDisplay('5')">
-    <input type="button" value="6" onclick="appendToDisplay('6')">
-    <input type="button" value="-" onclick="appendToDisplay('-')">
-    <br>
-    <input type="button" value="7" onclick="appendToDisplay('7')">
-    <input type="button" value="8" onclick="appendToDisplay('8')">
-    <input type="button" value="9" onclick="appendToDisplay('9')">
-    <input type="button" value="*" onclick="appendToDisplay('*')">
-    <br>
-    <input type="button" value="0" onclick="appendToDisplay('0')">
-    <input type="button" value="C" onclick="clearDisplay()">
-    <input type="button" value="=" onclick="calculate()">
-    <input type="button" value="/" onclick="appendToDisplay('/')">
-    <br>
+
+    <h1>yuman的簡易計算機</h1>
+
+    <div class="calculator-box">
+        <input type="text" id="display" readonly placeholder="0">
+        <br>
+        <input type="button" value="1" onclick="appendToDisplay('1')">
+        <input type="button" value="2" onclick="appendToDisplay('2')">
+        <input type="button" value="3" onclick="appendToDisplay('3')">
+        <input type="button" value="+" class="operator" onclick="appendToDisplay('+')">
+        <br>
+        <input type="button" value="4" onclick="appendToDisplay('4')">
+        <input type="button" value="5" onclick="appendToDisplay('5')">
+        <input type="button" value="6" onclick="appendToDisplay('6')">
+        <input type="button" value="-" class="operator" onclick="appendToDisplay('-')">
+        <br>
+        <input type="button" value="7" onclick="appendToDisplay('7')">
+        <input type="button" value="8" onclick="appendToDisplay('8')">
+        <input type="button" value="9" onclick="appendToDisplay('9')">
+        <input type="button" value="*" class="operator" onclick="appendToDisplay('*')">
+        <br>
+        <input type="button" value="0" onclick="appendToDisplay('0')">
+        <input type="button" value="C" class="clear" onclick="clearDisplay()">
+        <input type="button" value="=" class="equal" onclick="calculate()">
+        <input type="button" value="/" class="operator" onclick="appendToDisplay('/')">
+    </div>
+
     <script>
         function appendToDisplay(value) {
             document.getElementById("display").value += value;
@@ -62,15 +130,13 @@
         function calculate() {
             var expression = document.getElementById("display").value;
             try {
+                // 防止空值計算
+                if (expression === "") return;
                 document.getElementById("display").value = eval(expression);
             } catch (e) {
                 document.getElementById("display").value = 'Error';
             }
         }
     </script>
-</body>
-</html>
-<!-- partial -->
-  
 </body>
 </html>
