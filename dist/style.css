@@ -1,1 +1,12 @@
-body { background-color:#Fee5F5}
+body {
+    background-color: #F3E5F5; /* 淺紫色背景 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', cursive;
+}
+
+/* 你可以把上面我提供的其他按鈕樣式也貼在這裡 */
